@@ -65,37 +65,112 @@
             margin-bottom: 5px;
         }
         .signature-title {
-            color: #4a5568;
-            font-size: 14px;
-            margin-bottom: 20px;
-        }
-        .footer {
-            background-color: #f8fafc;
-            padding: 20px;
-            text-align: center;
-            font-size: 12px;
-            color: #718096;
-            border-top: 1px solid #edf2f7;
-        }
-        .footer img {
-            height: 30px;
-            margin-bottom: 10px;
-        }
-        .footer p {
-            margin: 5px 0;
-        }
-        @media only screen and (max-width: 600px) {
-            .email-container {
-                width: 100% !important;
-                margin: 0 !important;
-            }
-            .content {
-                padding: 20px !important;
-            }
-            .header {
-                padding: 30px 20px !important;
-            }
-        }
+    max-width: 600px;
+    padding: 20px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    font-family: 'Arial', sans-serif;
+}
+
+.title {
+    font-size: 1.2em;
+    font-weight: 600;
+    color: #2c3e50;
+    margin-bottom: 15px;
+    border-bottom: 2px solid #3498db;
+    padding-bottom: 5px;
+}
+
+.contact-info {
+    line-height: 1.6;
+}
+
+.contact-info p {
+    margin: 10px 0;
+    color: #34495e;
+    font-size: 1em;
+}
+
+.contact-info a {
+    color: #3498db;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.contact-info a:hover {
+    color: #2980b9;
+    text-decoration: underline;
+}
+
+/* Footer Section */
+.footer {
+    background-color: #f8fafc;
+    padding: 20px;
+    text-align: center;
+    font-family: 'Arial', sans-serif;
+    font-size: 12px;
+    color: #718096;
+    border-top: 1px solid #edf2f7;
+    margin-top: 20px; /* Added spacing from content above */
+}
+
+.footer img {
+    height: 30px;
+    margin-bottom: 10px;
+    transition: transform 0.3s ease; /* Smooth hover effect */
+}
+
+.footer img:hover {
+    transform: scale(1.1); /* Subtle zoom on hover */
+}
+
+.footer p {
+    margin: 5px 0;
+    line-height: 1.5; /* Matches contact-info readability */
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+    .signature-title {
+        max-width: 100%;
+        margin: 10px;
+    }
+    
+    .title {
+        font-size: 1.1em;
+    }
+    
+    .contact-info p {
+        font-size: 0.95em;
+    }
+
+    .footer {
+        padding: 15px;
+        font-size: 11px;
+    }
+
+    .footer img {
+        height: 25px;
+    }
+}
+
+/* Additional Media Query for Consistency with Your Original 600px Breakpoint */
+@media only screen and (max-width: 600px) {
+    .signature-title {
+        max-width: 100%;
+        margin: 0 10px;
+        padding: 15px;
+    }
+
+    .contact-info p {
+        font-size: 0.9em;
+    }
+
+    .footer {
+        padding: 15px 10px;
+    }
+}
     </style>
 </head>
 <body>
@@ -111,12 +186,17 @@
 
                 <div class="signature">
                     <div class="signature-name">{{ $senderName }}</div>
-                    <div class="signature-title">Développeur Web Full Stack</div>
+                    <div class="signature-title">
+                        <p class="title">Pour me Contactez :</p>
+                        <div class="contact-info">
+                            <p>Email: <a href="mailto:abdelhamidelaali.bs007@gmail.com">abdelhamidelaali.bs007@gmail.com</a></p>
+                            <p>Tel: +212 648 55 40 12</p>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="footer">
-                <p>Envoyé via {{ $senderName }}</p>
-                <p style="color: #a0aec0; font-size: 11px;">Cet email a été envoyé par Abdelhamid El Aali.</p>
+                <div class="footer">
+                    <p>Envoyé via {{ $senderName }}</p>
+                    <p style="color: #a0aec0; font-size: 11px;">Cet email a été envoyé par Abdelhamid El Aali.</p>
             </div>
         </div>
     </div>
