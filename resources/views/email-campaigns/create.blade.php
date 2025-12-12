@@ -114,7 +114,35 @@
                             <p class="text-xs text-gray-400 mt-1">PDF, DOC, DOCX, JPG, PNG up to 10MB</p>
                         </div>
                     </div>
+                    <!-- File List Container -->
+                    <div id="file-list" class="mt-4 space-y-2"></div>
                 </div>
+
+                <script>
+                    document.getElementById('attachments').addEventListener('change', function(e) {
+                        const fileList = document.getElementById('file-list');
+                        fileList.innerHTML = ''; // Clear previous selections
+                        
+                        Array.from(this.files).forEach(file => {
+                            const fileSize = (file.size / 1024 / 1024).toFixed(2); // Convert to MB
+                            
+                            const fileItem = document.createElement('div');
+                            fileItem.className = 'flex items-center gap-3 p-3 bg-gray-50 rounded-lg border border-gray-100';
+                            fileItem.innerHTML = `
+                                <div class="w-8 h-8 bg-primary-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                                    <svg class="w-4 h-4 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                                    </svg>
+                                </div>
+                                <div class="flex-1 min-w-0">
+                                    <p class="text-sm font-medium text-gray-700 truncate">${file.name}</p>
+                                    <p class="text-xs text-gray-400">${fileSize} MB</p>
+                                </div>
+                            `;
+                            fileList.appendChild(fileItem);
+                        });
+                    });
+                </script>
 
                 <!-- Tips Card -->
                 <div class="bg-gradient-to-br from-primary-50 to-primary-100 rounded-xl border border-primary-200 p-6">
