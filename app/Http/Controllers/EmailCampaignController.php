@@ -189,4 +189,30 @@ class EmailCampaignController extends Controller
                 ->with('error', 'Failed to send email campaign: ' . $e->getMessage());
         }
     }
+
+    public function show(EmailCampaign $campaign)
+    {
+        return view('email-campaigns.show', compact('campaign'));
+    }
+
+    public function destroy(EmailCampaign $campaign)
+    {
+        try {
+            // Delete associated attachments from storage
+            if (!empty($campaign->attachments)) {
+                foreach ($campaign->attachments as $attachment) {
+                    if (isset($attachment['path'])) {
+                        Storage::disk('public')->delete($attachment['path']);
+                    }
+                }
+            }
+
+            $campaign->delete();
+
+            return redirect()->route('email-campaigns.index')->with('success', 'Campaign deleted successfully!');
+        } catch (Exception $e) {
+            Log::error('Failed to delete campaign', ['error' => $e->getMessage()]);
+            return redirect()->back()->with('error', 'Failed to delete campaign. Please try again.');
+        }
+    }
 }
