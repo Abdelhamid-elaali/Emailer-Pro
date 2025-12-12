@@ -82,11 +82,20 @@ class EmailCampaignController extends Controller
             $fromEmail = config('mail.from.address');
             $fromName = config('mail.from.name', 'Demande Stage');
 
+            // Debug logging for API key
+            Log::info('Brevo Configuration Debug', [
+                'api_key_set' => !empty($apiKey),
+                'api_key_length' => strlen($apiKey ?? ''),
+                'api_key_preview' => $apiKey ? substr($apiKey, 0, 10) . '...' : 'NOT SET',
+                'from_email' => $fromEmail,
+                'from_name' => $fromName,
+            ]);
+
             if (empty($apiKey)) {
-                throw new Exception('Brevo API key is not configured');
+                throw new Exception('Brevo API key is not configured. Please set BREVO_API_KEY in your .env file.');
             }
-            if (empty($fromEmail)) {
-                throw new Exception('Sender email address is not configured');
+            if (empty($fromEmail) || $fromEmail === 'hello@example.com') {
+                throw new Exception('Sender email address is not configured. Please set MAIL_FROM_ADDRESS in your .env file.');
             }
 
             // 6. Send emails
@@ -128,7 +137,8 @@ class EmailCampaignController extends Controller
                             'api-key' => $apiKey,
                             'content-type' => 'application/json',
                         ],
-                        'json' => $emailData
+                        'json' => $emailData,
+                        'verify' => false // Disable SSL verification for Windows dev environment
                     ]);
 
                     if ($response->getStatusCode() === 201) {
